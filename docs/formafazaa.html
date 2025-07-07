@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Mafaza - You Are the Cutest 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Lora&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ffb6e1;
+            --light-pink: #ffd6f4;
+            --purple: #c8a2c8;
+            --blue: #a2c8e0;
+            --dark-blue: #2a3f5f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #2a3f5f 0%, #1a1a2e 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23ffb6e1" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .firefly {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--pink);
+            filter: blur(1px);
+            z-index: 0;
+            animation: float var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0%, 100% { opacity: 0; transform: translate(0, 0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+        }
+        
+        header {
+            text-align: center;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            color: var(--pink);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 182, 225, 0.5);
+        }
+        
+        .subtitle {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            color: var(--blue);
+            margin-bottom: 2rem;
+        }
+        
+        .accordion {
+            margin: 2rem 0;
+        }
+        
+        .accordion-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .accordion-item:nth-child(1) { animation: fadeIn 0.8s forwards 0.8s; }
+        .accordion-item:nth-child(2) { animation: fadeIn 0.8s forwards 1.1s; }
+        .accordion-item:nth-child(3) { animation: fadeIn 0.8s forwards 1.4s; }
+        .accordion-item:nth-child(4) { animation: fadeIn 0.8s forwards 1.7s; }
+        .accordion-item:nth-child(5) { animation: fadeIn 0.8s forwards 2.0s; }
+        .accordion-item:nth-child(6) { animation: fadeIn 0.8s forwards 2.3s; }
+        
+        .accordion-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .accordion-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+        
+        .accordion-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+        
+        .accordion-content-inner {
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .accordion-item.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
+        
+        blockquote {
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--pink);
+            color: var(--light-pink);
+        }
+        
+        .things-list {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+        
+        .things-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .things-list li:before {
+            content: '❤️';
+            position: absolute;
+            left: 0;
+        }
+        
+        .poem {
+            margin: 1.5rem 0;
+            font-family: 'Lora', serif;
+            line-height: 1.8;
+        }
+        
+        .poem-title {
+            font-weight: bold;
+            color: var(--pink);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .poem-title .emoji {
+            margin-right: 0.5rem;
+        }
+        
+        .quote-carousel {
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 60px;
+            font-family: 'Lora', serif;
+            font-size: 1.3rem;
+            color: var(--light-pink);
+            opacity: 0;
+            animation: fadeIn 1s forwards 2s;
+        }
+        
+        .secret-message-container {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .secret-button {
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            color: white;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .secret-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .secret-button:active {
+            transform: translateY(1px);
+        }
+        
+        .secret-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 45%,
+                rgba(255, 255, 255, 0.8) 50%,
+                rgba(255, 255, 255, 0) 55%
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .secret-button:hover::after {
+            animation: shine 1.5s infinite;
+            opacity: 1;
+        }
+        
+        @keyframes shine {
+            0% { left: -50%; top: -50%; }
+            100% { left: 150%; top: 150%; }
+        }
+        
+        .hidden-messages {
+            display: none;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .hidden-messages.show {
+            display: block;
+        }
+        
+        .message {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .message:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .message-date {
+            font-size: 0.8rem;
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .message-content {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+        }
+        
+        .close-messages {
+            background: var(--pink);
+            border: none;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-messages:hover {
+            background: var(--light-pink);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            margin: 3rem 0 1rem;
+            font-size: 0.9rem;
+            color: var(--blue);
+            opacity: 0;
+            animation: fadeIn 1s forwards 2.6s;
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .music-icon {
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .accordion-header {
+                padding: 1rem;
+            }
+            
+            .accordion-title {
+                font-size: 1.1rem;
+            }
+            
+            .quote-carousel {
+                font-size: 1.1rem;
+            }
+            
+            .secret-button {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            blockquote {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="fireflies" id="fireflies"></div>
+    
+    <div class="cursor-trail" id="cursorTrail"></div>
+    
+    <div class="container">
+        <header>
+            <h1>For Mafaza — You Are the Cutest 💖</h1>
+            <div class="subtitle">A digital love letter that shines as bright as you</div>
+        </header>
+        
+        <div class="quote-carousel" id="quoteCarousel">
+            "You're not just pretty, you're art ✨"
+        </div>
+        
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-icon">💌</div>
+                    <div class="accordion-title">You're So Special</div>
+                    <div class="accordion-arrow">▼</div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <blockquote>
+                            Mafaza, I hope you know how incredibly rare someone like you is. The way you speak, smile, and exist — it's beautiful beyond words. You're not just a person, you're a soft feeling in human form.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-icon">🌸</div>
+                    <div class="accordion-title">You Make Days Better</div>
+                    <div class="accordion-arrow">▼</div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <blockquote>
+                            Just knowing you're around makes life feel a little more peaceful. Your kindness, your energy, and your aura — it's like a calm breeze on a stressful day. You're my comfort zone.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-icon">✨</div>
+                    <div class="accordion-title">You're Effortlessly Cute</div>
+                    <div class="accordion-arrow">▼</div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <blockquote>
+                            You don't even try and still manage to be the cutest human alive. Everything you do — your laugh, your eye rolls, even your "no" — is adorable. Like fr, how are you real?
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-icon">🌙</div>
+                    <div class="accordion-title">The Thought of You</div>
+                    <div class="accordion-arrow">▼</div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <blockquote>
+                            I think of you more often than you think. You're not just someone I talk to, you're someone I treasure. If hearts could smile, mine would every time I hear your name.
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-icon">📝</div>
+                    <div class="accordion-title">10 Things I Love About You</div>
+                    <div class="accordion-arrow">▼</div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <ol class="things-list">
+                            <li>Your soft, loving heart</li>
+                            <li>The way you laugh</li>
+                            <li>Your cuteness and depth</li>
+                            <li>How you make people feel seen</li>
+                            <li>Your aesthetic, vibe, and style</li>
+                            <li>The cute things you say without even noticing</li>
+                            <li>How strong you are, even when you're quiet about it</li>
+                            <li>That special glow in your personality</li>
+                            <li>How talking to you makes everything feel lighter</li>
+                            <li>The fact that you're you and that's more than enough</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <div class="accordion-icon">✍️</div>
+                    <div class="accordion-title">Poems for Mafaza</div>
+                    <div class="accordion-arrow">▼</div>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-content-inner">
+                        <div class="poem">
+                            <div class="poem-title"><span class="emoji">🌸</span> Little Glow</div>
+                            <blockquote>
+                                You don't shout to shine,<br>
+                                But quietly, you glow.<br>
+                                With every word you say,<br>
+                                You make the soft things grow.
+                            </blockquote>
+                        </div>
+                        
+                        <div class="poem">
+                            <div class="poem-title"><span class="emoji">🌙</span> For Her Who's Magic</div>
+                            <blockquote>
+                                You laugh — and skies get brighter,<br>
+                                You speak — and thoughts feel lighter.<br>
+                                The world just feels more right,<br>
+                                When you're somewhere in the night.
+                            </blockquote>
+                        </div>
+                        
+                        <div class="poem">
+                            <div class="poem-title"><span class="emoji">💫</span> The Way You Exist</div>
+                            <blockquote>
+                                You exist like poetry, not meant to be explained,<br>
+                                A feeling, a moment, not easily named.<br>
+                                In a world loud and always in a race,<br>
+                                You're the peace, the calm, the safest place.
+                            </blockquote>
+                        </div>
+                        
+                        <div class="poem">
+                            <div class="poem-title"><span class="emoji">🌷</span> If You Ever Wonder</div>
+                            <blockquote>
+                                If you ever wonder what you are to me,<br>
+                                You're the pause in the noise, the soft melody.<br>
+                                A reason to smile on a hard, dull day,<br>
+                                The kind of soul I'd never trade away.
+                            </blockquote>
+                        </div>
+                        
+                        <div class="poem">
+                            <div class="poem-title"><span class="emoji">🍃</span> You, Softly</div>
+                            <blockquote>
+                                You don't need glitter to shine,<br>
+                                Or thunder to be heard.<br>
+                                Your softness is a strength,<br>
+                                Every smile a magic word.
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Secret Message Section -->
+        <div cla
